@@ -18,7 +18,7 @@ window.SUPABASE_CONFIG = {
       Members only ever type the PASSWORD on the secret page — this email is
       filled in for them behind the scenes. The password is changeable from
       inside the console (Settings tab) or the Supabase dashboard. */
-   adminEmail: "admin@robotics.iitdh.ac.in",
+   adminEmail: "mc25bt011@iitdh.ac.in",
 
    /* Storage bucket for uploaded images (created by setup.sql). */
    imageBucket: "site-images",
