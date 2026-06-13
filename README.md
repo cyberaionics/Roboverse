@@ -139,3 +139,5 @@ For a live environment, follow the 5-step handover guide:
 
 ## 🛠️ Upcoming Tasks
 * **Wire Public Pages to the Store:** Currently, the public pages read default content from `js/data.jsx`. The next task is to update the public views (`js/home.jsx`, `js/projects.jsx`, etc.) to retrieve active database lists from the `Store.list()` API, enabling changes made in the admin console to update the public site live.
+
+
