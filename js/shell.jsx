@@ -114,25 +114,6 @@ function MenuOverlay({ open, onClose, current }) {
           </a>
         </nav>
       </div>
-
-      <div className="menu-foot">
-        <div className="menu-foot-col">
-          <span className="eyebrow">GET IN TOUCH</span>
-          <a href="mailto:robotics@iitdh.ac.in">robotics@iitdh.ac.in</a>
-        </div>
-        <div className="menu-foot-col">
-          <span className="eyebrow">FIND US</span>
-          <span className="mf-text">Innovation Hub, IIT Dharwad<br />Karnataka 580011</span>
-        </div>
-        <div className="menu-foot-col">
-          <span className="eyebrow">SOCIAL</span>
-          <div className="mf-social">
-            <a href="#" onClick={(e) => e.preventDefault()}>Instagram</a>
-            <a href="#" onClick={(e) => e.preventDefault()}>LinkedIn</a>
-            <a href="#" onClick={(e) => e.preventDefault()}>GitHub</a>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
