@@ -32,15 +32,49 @@ function Division({ t, i }) {
   );
 }
 
+/* global React, ReactDOM, Store, TopBar, SiteFooter, Cursor, useReveal, useParallax, Reveal, Counter, Ph, Corners, SectionHead, TEAMS, PEOPLE */
+const { useState, useEffect } = React;
+
+// Keep PIPELINE and Division components as they are!
+
 function TeamsPage() {
   useReveal(); useParallax();
-  const total = TEAMS.reduce((s, t) => s + t.count, 0);
+  const [divisions, setDivisions] = useState([]);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    Store.ready.then(() => {
+      // Fetch Divisions
+      Store.list("team").then((tData) => {
+        setDivisions(tData.length ? tData : window.TEAMS);
+      }).catch(() => setDivisions(window.TEAMS));
+
+      // Fetch Team Members
+      Store.list("person").then((pData) => {
+        setPeople(pData.length ? pData : window.PEOPLE);
+      }).catch(() => setPeople(window.PEOPLE));
+    });
+  }, []);
+
+  // Show premium loading state until data loads
+  if (!divisions.length || !people.length) {
+    return (
+      <div className="gate" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="mono dim" style={{ color: "var(--text-3)" }}>
+          <span className="spin" /> &nbsp;Loading team details…
+        </div>
+      </div>
+    );
+  }
+
+  const total = divisions.reduce((s, t) => s + (t.count || 0), 0);
   const stats = [
-    { n: 4, suf: "", l: "Divisions" },
+    { n: divisions.length, suf: "", l: "Divisions" },
     { n: total, suf: "+", l: "Active members" },
     { n: 12, suf: "", l: "Live projects" },
     { n: 9, suf: "", l: "Titles won" },
   ];
+
   return (
     <>
       <Cursor />
@@ -61,7 +95,7 @@ function TeamsPage() {
         </section>
 
         <section className="wrap" style={{ paddingBottom: "clamp(40px,6vw,80px)" }}>
-          {TEAMS.map((t, i) => <Division key={t.n} t={t} i={i} />)}
+          {divisions.map((t, i) => <Division key={t.n} t={t} i={i} />)}
         </section>
 
         <section className="pad" style={{ borderTop: "1px solid var(--line-soft)" }}>
@@ -84,9 +118,13 @@ function TeamsPage() {
             <SectionHead index="—" kicker="THE CORE TEAM"
               title="The hands behind the <em>hardware</em>." />
             <div className="leads-grid">
-              {PEOPLE.map((p, i) => (
+              {people.map((p, i) => (
                 <Reveal key={p.name} delay={i * 50} className="lead-card">
-                  <Ph label="PORTRAIT" />
+                  {p.image ? (
+                    <img src={p.image} alt={p.name} style={{ width: "100%", height: "240px", objectFit: "cover", borderRadius: "12px", border: "1px solid var(--line-soft)" }} />
+                  ) : (
+                    <Ph label="PORTRAIT" />
+                  )}
                   <div className="lc-body">
                     <h4>{p.name}</h4>
                     <div className="lc-role">{p.role}</div>

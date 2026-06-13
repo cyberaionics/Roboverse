@@ -1,12 +1,51 @@
-/* global React, ReactDOM, TopBar, SiteFooter, Cursor, BackBar, useReveal, useParallax, Reveal, Ph, Corners, PROJECTS, findProject */
+/* global React, ReactDOM, Store, TopBar, SiteFooter, Cursor, BackBar, useReveal, useParallax, Reveal, Ph, Corners, PROJECTS */
+const { useState, useEffect } = React;
 
 function ProjectDetail() {
   useReveal(); useParallax();
-  const params = new URLSearchParams(window.location.search);
-  const p = findProject(params.get("id")) || PROJECTS[0];
-  const idx = PROJECTS.findIndex((x) => x.slug === p.slug);
-  const next = PROJECTS[(idx + 1) % PROJECTS.length];
-  const prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
+  const [p, setP] = useState(null);
+  const [prev, setPrev] = useState(null);
+  const [next, setNext] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("id");
+
+    Store.ready.then(() => {
+      Store.list("project").then((data) => {
+        const list = data.length ? data : window.PROJECTS;
+        const index = list.findIndex((x) => x.slug === slug);
+        const found = index >= 0 ? list[index] : list[0];
+        const idx = list.findIndex((x) => x.slug === found.slug);
+
+        setP(found);
+        setNext(list[(idx + 1) % list.length]);
+        setPrev(list[(idx - 1 + list.length) % list.length]);
+      }).catch(() => {
+        // Fallback to static defaults
+        const list = window.PROJECTS;
+        const index = list.findIndex((x) => x.slug === slug);
+        const found = index >= 0 ? list[index] : list[0];
+        const idx = list.findIndex((x) => x.slug === found.slug);
+
+        setP(found);
+        setNext(list[(idx + 1) % list.length]);
+        setPrev(list[(idx - 1 + list.length) % list.length]);
+      });
+    });
+  }, []);
+
+  // Return a loading state until the store resolves
+  if (!p) {
+    return (
+      <div className="gate" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="mono dim" style={{ color: "var(--text-3)" }}>
+          <span className="spin" /> &nbsp;Loading project details…
+        </div>
+      </div>
+    );
+  }
+
   const accent = { "--ph-h": `oklch(0.8 0.15 ${p.hue})` };
 
   return (
@@ -28,8 +67,16 @@ function ProjectDetail() {
           <Reveal delay={60}><h1 className="detail-title">{p.title}</h1></Reveal>
           <Reveal delay={120}><p className="detail-tagline">{p.tagline}</p></Reveal>
           <Reveal delay={160}>
-            <div className="hud detail-media"><Corners /><Ph label={`${p.title.toUpperCase()} — HERO`} /></div>
+            <div className="hud detail-media">
+              <Corners />
+              {p.image ? (
+                <img src={p.image} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
+                <Ph label={`${p.title.toUpperCase()} — HERO`} />
+              )}
+            </div>
           </Reveal>
+
         </section>
 
         <section className="wrap">

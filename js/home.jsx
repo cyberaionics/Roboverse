@@ -62,6 +62,21 @@ function AboutIntro() {
 }
 
 function Innovations() {
+  const [highlights, setHighlights] = React.useState([]);
+
+  React.useEffect(() => {
+    // Wait for the unified store to prepare, then load innovations list
+    Store.ready.then(() => {
+      Store.list("innovation").then((data) => {
+        // If the database has content, use it; otherwise, fall back to the static defaults in data.jsx
+        setHighlights(data.length ? data : window.INNOVATIONS);
+      }).catch(() => {
+        // Fallback in case of database error
+        setHighlights(window.INNOVATIONS);
+      });
+    });
+  }, []);
+
   return (
     <section className="pad" id="innovations" style={{ borderTop: "1px solid var(--line-soft)" }}>
       <div className="wrap">
@@ -69,9 +84,15 @@ function Innovations() {
           title="The innovations that <em>take us forward</em>."
           lead="The builds, arenas and lab work defining our current season." />
         <div className="win-grid">
-          {INNOVATIONS.map((w, i) => (
+          {highlights.map((w, i) => (
             <Reveal key={w.title} delay={i * 90} as="a" className="win" href={w.href} style={{ "--win-h": `oklch(0.8 0.15 ${w.hue})` }}>
-              <div className="win-media"><Ph label={w.ph} /></div>
+              <div className="win-media">
+                {w.image ? (
+                  <img src={w.image} alt={w.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                ) : (
+                  <Ph label={w.ph} />
+                )}
+              </div>
               <div className="win-body">
                 <div className="win-kicker">{w.kicker}</div>
                 <h3>{w.title}</h3>

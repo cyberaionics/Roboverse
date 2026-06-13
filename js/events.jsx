@@ -35,11 +35,28 @@ function EventSection({ title, badge, events }) {
   );
 }
 
+/* global React, ReactDOM, Store, TopBar, SiteFooter, Cursor, useReveal, useParallax, Reveal, EVENTS */
+const { useState, useEffect } = React;
+
+// Keep EventCard and EventSection components as they are!
+
 function EventsPage() {
   useReveal(); useParallax();
-  const live = EVENTS.filter((e) => e.status === "live");
-  const upcoming = EVENTS.filter((e) => e.status === "upcoming");
-  const past = EVENTS.filter((e) => e.status === "past");
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    Store.ready.then(() => {
+      Store.list("event").then((data) => {
+        setEvents(data.length ? data : window.EVENTS);
+      }).catch(() => {
+        setEvents(window.EVENTS);
+      });
+    });
+  }, []);
+
+  const live = events.filter((e) => e.status === "live");
+  const upcoming = events.filter((e) => e.status === "upcoming");
+  const past = events.filter((e) => e.status === "past");
 
   return (
     <>
@@ -48,14 +65,14 @@ function EventsPage() {
       <main className="page">
         <section className="wrap page-intro">
           <Reveal><div className="kicker">04 / EVENTS</div></Reveal>
-          <Reveal delay={60}><h1 className="page-title" style={{ marginTop: 16 }}>Workshops,<br />sprints & <em>arenas</em>.</h1></Reveal>
-          <Reveal delay={120}><p className="page-lead">Everything the club is running — happening now, coming up, and what we've already pulled off. Open to all students.</p></Reveal>
+          <Reveal delay={60}><h1 className="page-title" style={{ marginTop: 16 }}>What's happening<br />in the <em>arena</em>.</h1></Reveal>
+          <Reveal delay={120}><p className="page-lead">Stay up to date with our upcoming bootcamps, workshops, local challenges, and our flagship inter-college RoboWeek festivals.</p></Reveal>
         </section>
 
         <section className="wrap" style={{ paddingBottom: "clamp(80px,11vw,150px)" }}>
-          <EventSection title="Live" badge events={live} />
-          <EventSection title="Upcoming" events={upcoming} />
-          <EventSection title="Past" events={past} />
+          <EventSection title="Live Now" badge events={live} />
+          <EventSection title="Upcoming Schedule" events={upcoming} />
+          <EventSection title="Past Events" events={past} />
         </section>
       </main>
       <SiteFooter />

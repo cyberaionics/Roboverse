@@ -1,19 +1,24 @@
-/* global React, ReactDOM, TopBar, SiteFooter, Cursor, useReveal, useParallax, Reveal, Ph, SectionHead, PROJECTS, PROJ_CATS */
-const { useState, useMemo } = React;
+/* global React, ReactDOM, Store, TopBar, SiteFooter, Cursor, useReveal, useParallax, Reveal, Ph, SectionHead, PROJ_CATS */
+const { useState, useEffect, useMemo } = React;
 
 function ProjectCard({ p, i, featured }) {
   return (
     <Reveal as="a" delay={(i % 3) * 70} href={`project.html?id=${p.slug}`}
       className={`pcard ${featured ? "pwide" : ""}`} style={{ "--ph-h": `oklch(0.8 0.15 ${p.hue})` }}>
       <div className="pcard-media">
-        <Ph label={p.title.toUpperCase()} />
+        {/* Support uploaded images from Supabase, fall back to color placeholder */}
+        {p.image ? (
+          <img src={p.image} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        ) : (
+          <Ph label={p.title.toUpperCase()} />
+        )}
         <span className="pcard-num">{String(i + 1).padStart(2, "0")}</span>
         <span className="pcard-stat"><i className="d" />{p.status}</span>
       </div>
       <div className="pcard-body">
         <div className="pcard-tags"><span className="t">{p.cat}</span><span className="t">{p.tag}</span></div>
         <h3>{p.title}</h3>
-        <p>{featured ? p.overview[0] : p.tagline}</p>
+        <p>{featured ? (p.overview && p.overview[0]) : p.tagline}</p>
         <div className="pcard-foot">
           <span className="pcard-view">View project <span className="arr">→</span></span>
           <span className="pcard-yr">{p.year}</span>
@@ -25,13 +30,26 @@ function ProjectCard({ p, i, featured }) {
 
 function ProjectsPage() {
   useReveal(); useParallax();
+  const [projects, setProjects] = useState([]);
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
-  const list = useMemo(() => PROJECTS.filter((p) => {
+
+  // Load from store on mount
+  useEffect(() => {
+    Store.ready.then(() => {
+      Store.list("project").then((data) => {
+        setProjects(data.length ? data : window.PROJECTS);
+      }).catch(() => {
+        setProjects(window.PROJECTS);
+      });
+    });
+  }, []);
+
+  const list = useMemo(() => projects.filter((p) => {
     const okCat = cat === "All" || p.cat === cat;
     const okQ = !q || (p.title + p.tagline + p.cat + p.tag).toLowerCase().includes(q.toLowerCase());
     return okCat && okQ;
-  }), [cat, q]);
+  }), [projects, cat, q]);
 
   return (
     <>
@@ -62,8 +80,8 @@ function ProjectsPage() {
           {list.length === 0
             ? <div className="empty">NO PROJECTS MATCH YOUR FILTER</div>
             : <div className="pgrid">
-                {list.map((p, i) => <ProjectCard key={p.slug} p={p} i={i} featured={cat === "All" && !q && i === 0} />)}
-              </div>}
+              {list.map((p, i) => <ProjectCard key={p.slug} p={p} i={i} featured={cat === "All" && !q && i === 0} />)}
+            </div>}
         </section>
       </main>
       <SiteFooter />

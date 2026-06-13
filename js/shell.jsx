@@ -15,7 +15,7 @@ function applyPrefs() {
       document.documentElement.style.setProperty("--a2", SCHEMES[name][1]);
     }
     if (localStorage.getItem("rc_grid") === "0") document.body.classList.add("no-grid");
-  } catch (e) {}
+  } catch (e) { }
 }
 applyPrefs();
 
@@ -57,7 +57,19 @@ function TopBar({ current }) {
   );
 }
 
+/* tiles shown in the grid (Home + Contact live on the vertical rail) */
+const MENU_TILES = [
+  { id: "projects", hue: 230, glyph: "PR" },
+  { id: "events", hue: 205, glyph: "EV" },
+  { id: "teams", hue: 150, glyph: "TM" },
+  { id: "about", hue: 285, glyph: "AB" },
+];
+
 function MenuOverlay({ open, onClose, current }) {
+  const byId = Object.fromEntries(NAV.map((n) => [n.id, n]));
+  const home = byId.home, contact = byId.contact;
+  const tiles = MENU_TILES.map((t) => ({ ...t, ...byId[t.id] }));
+
   return (
     <div className={`menu-overlay ${open ? "open" : ""}`} aria-hidden={!open}>
       <div className="menu-bg-grid" />
@@ -69,16 +81,39 @@ function MenuOverlay({ open, onClose, current }) {
         </button>
       </div>
 
-      <nav className="menu-links">
-        {NAV.map((l, i) => (
-          <a key={l.id} href={l.href} className={`menu-link ${current === l.id ? "active" : ""}`} style={{ transitionDelay: `${0.06 * i + 0.05}s` }}>
-            <span className="ml-n">{l.n}</span>
-            <span className="ml-label">{l.label}</span>
-            <span className="ml-desc">{l.desc}</span>
-            <span className="ml-arrow">→</span>
+      <div className="menu-stage">
+        <nav className="menu-grid">
+          {tiles.map((t, i) => (
+            <a
+              key={t.id}
+              href={t.href}
+              className={`menu-tile ${current === t.id ? "active" : ""}`}
+              style={{ "--hue": t.hue, transitionDelay: `${0.07 * i + 0.08}s` }}
+            >
+              <span className="mt-tint" />
+              <span className="mt-grain" />
+              <span className="mt-num"><i />{t.n}</span>
+              <span className="mt-glyph" aria-hidden="true">{t.glyph}</span>
+              <span className="mt-body">
+                <span className="mt-label">{t.label}</span>
+                <span className="mt-desc">{t.desc}</span>
+              </span>
+              <span className="mt-enter">ENTER <i className="arr">→</i></span>
+            </a>
+          ))}
+        </nav>
+
+        <nav className="menu-rail">
+          <a href={home.href} className={`rail-link ${current === home.id ? "active" : ""}`} style={{ transitionDelay: ".34s" }}>
+            <span className="rl-label">{home.label}</span>
+            <span className="rl-n">{home.n}</span>
           </a>
-        ))}
-      </nav>
+          <a href={contact.href} className={`rail-link ${current === contact.id ? "active" : ""}`} style={{ transitionDelay: ".42s" }}>
+            <span className="rl-label">{contact.label}</span>
+            <span className="rl-n">{contact.n}</span>
+          </a>
+        </nav>
+      </div>
 
       <div className="menu-foot">
         <div className="menu-foot-col">

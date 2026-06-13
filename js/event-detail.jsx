@@ -1,9 +1,37 @@
-/* global React, ReactDOM, TopBar, SiteFooter, Cursor, BackBar, useReveal, useParallax, Reveal, Ph, Corners, EVENTS, findEvent */
+/* global React, ReactDOM, Store, TopBar, SiteFooter, Cursor, BackBar, useReveal, useParallax, Reveal, Ph, Corners, EVENTS */
+const { useState, useEffect } = React;
 
 function EventDetail() {
   useReveal(); useParallax();
-  const params = new URLSearchParams(window.location.search);
-  const ev = findEvent(params.get("id")) || EVENTS[0];
+  const [ev, setEv] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("id");
+
+    Store.ready.then(() => {
+      Store.list("event").then((data) => {
+        const list = data.length ? data : window.EVENTS;
+        const found = list.find((e) => e.slug === slug) || list[0];
+        setEv(found);
+      }).catch(() => {
+        const list = window.EVENTS;
+        const found = list.find((e) => e.slug === slug) || list[0];
+        setEv(found);
+      });
+    });
+  }, []);
+
+  if (!ev) {
+    return (
+      <div className="gate" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="mono dim" style={{ color: "var(--text-3)" }}>
+          <span className="spin" /> &nbsp;Loading event details…
+        </div>
+      </div>
+    );
+  }
+
   const isLive = ev.status === "live";
 
   return (
@@ -39,7 +67,14 @@ function EventDetail() {
           </Reveal>
 
           <Reveal delay={180}>
-            <div className="hud detail-media" style={{ marginTop: 28 }}><Corners /><Ph label={`${ev.title.toUpperCase()}`} /></div>
+            <div className="hud detail-media" style={{ marginTop: 28 }}>
+              <Corners />
+              {ev.image ? (
+                <img src={ev.image} alt={ev.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
+                <Ph label={`${ev.title.toUpperCase()}`} />
+              )}
+            </div>
           </Reveal>
         </section>
 
