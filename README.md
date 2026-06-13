@@ -103,41 +103,4 @@ If API credentials are empty or placeholders, the store falls back to **Demo Mod
 └── tweaks-panel.jsx                     # Interactive UI styling panel
 ```
 
----
-
-## 🚀 Getting Started
-
-### Running Locally
-Because there is no build step, you can run the project using any static web server:
-
-```bash
-# Using Python
-python3 -m http.server 8000
-
-# Using Node (npm)
-npx serve .
-```
-
-Navigate to `http://localhost:8000` to view the website. By default, the admin console will run in **Demo Mode**. You can access it via the unguessable URL:
-`http://localhost:8000/console-a7f3c9e2b8d14f6a93e0c5b1.html`
-
-> [!TIP]
-> Use the default password `robotics-admin` to sign into the demo console.
-
-### Going Live with Supabase
-For a live environment, follow the 5-step handover guide:
-1. Create a project at [supabase.com](https://supabase.com).
-2. Execute [supabase/setup.sql](file:///run/media/rangerofdanger/Files/Projects/IIT%20Dharwad%20Robotics%20Club%20Website/supabase/setup.sql) in the Supabase SQL editor.
-3. Register the admin user in `Authentication → Users` using the email declared in `supabase-config.js`. Enable **Auto Confirm**.
-4. Set the `url` and `anonKey` in [supabase-config.js](file:///run/media/rangerofdanger/Files/Projects/IIT%20Dharwad%20Robotics%20Club%20Website/supabase-config.js).
-5. Log into the admin console and click **Settings → Import current site content** to automatically migrate hardcoded data into your live Supabase database.
-
-> [!WARNING]
-> Remember to rename `console-a7f3c9e2b8d14f6a93e0c5b1.html` to a different unguessable name in production to hide it from crawling bots.
-
----
-
-## 🛠️ Upcoming Tasks
-* **Wire Public Pages to the Store:** Currently, the public pages read default content from `js/data.jsx`. The next task is to update the public views (`js/home.jsx`, `js/projects.jsx`, etc.) to retrieve active database lists from the `Store.list()` API, enabling changes made in the admin console to update the public site live.
-
-
+Developed by: Ankush Tarafdar and Team (with the assistance of Artificial Intelligence Tools)

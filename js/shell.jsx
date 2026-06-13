@@ -140,13 +140,12 @@ function SiteFooter() {
               <a href="index.html#contact">Sponsor us</a><a href="index.html#contact">Collaborate</a><a href="mailto:robotics@iitdh.ac.in">Email</a>
             </div>
             <div className="footer-col"><h5>Social</h5>
-              <a href="#" onClick={(e) => e.preventDefault()}>Instagram ↗</a><a href="#" onClick={(e) => e.preventDefault()}>LinkedIn ↗</a><a href="#" onClick={(e) => e.preventDefault()}>GitHub ↗</a>
+              <a href="https://www.instagram.com/robotics.iitdh/" onClick={(e) => e.preventDefault()}>Instagram ↗</a><a href="https://www.linkedin.com/company/robotics-club-iit-dharwad/" onClick={(e) => e.preventDefault()}>LinkedIn ↗</a><a href="https://github.com/robotics-club-iitdh" onClick={(e) => e.preventDefault()}>GitHub ↗</a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
           <span>© 2026 Robotics Club · IIT Dharwad</span>
-          <span>Design Prototype · 15.39°N 74.99°E</span>
         </div>
       </div>
     </footer>
