@@ -105,38 +105,140 @@ function MenuOverlay({ open, onClose, current }) {
   );
 }
 
+
 function SiteFooter() {
   return (
     <footer className="footer">
+      <div className="footer-glow footer-glow-one" />
+      <div className="footer-glow footer-glow-two" />
+
       <div className="wrap">
+        {/* Large call to action */}
         <div className="footer-cta reveal">
-          <div className="eyebrow">EST. 2017 · IIT DHARWAD</div>
-          <h2 className="footer-big">Let's build the<br />future, together.</h2>
+          <div className="footer-cta-content">
+            <div className="eyebrow">
+              <span className="footer-status-dot" />
+              EST. 2017 · IIT DHARWAD
+            </div>
+
+            <h2 className="footer-big">
+              Let's build the
+              <br />
+              <span>future, together.</span>
+            </h2>
+
+            <p className="footer-cta-description">
+              Have an idea, a project, or a robot to build?
+              Let's make something extraordinary.
+            </p>
+
+            <div className="footer-cta-actions">
+              <a
+                href="mailto:robotics@iitdh.ac.in"
+                className="footer-secondary-btn"
+              >
+                Get in touch
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-visual" aria-hidden="true">
+            <div className="footer-orbit orbit-one" />
+            <div className="footer-orbit orbit-two" />
+            <div className="footer-orbit orbit-three" />
+            <div className="footer-orbit-core">
+              <BrandMark />
+            </div>
+            <span className="footer-cross cross-one">+</span>
+            <span className="footer-cross cross-two">+</span>
+            <span className="footer-cross cross-three">+</span>
+            <span className="footer-visual-label">
+              BUILD · TEST · REPEAT
+            </span>
+          </div>
         </div>
+
+        {/* Footer divider */}
+        <div className="footer-divider" />
+
+        {/* Brand and navigation */}
         <div className="footer-top">
           <div className="footer-brand">
-            <a href="index.html" className="brand"><BrandMark /><span><span className="brand-name">ROBOTICS CLUB</span><span className="brand-sub">IIT DHARWAD</span></span></a>
-            <p>Student robotics collective at the Indian Institute of Technology Dharwad. Built by students, for students.</p>
+            <a href="index.html" className="brand">
+              <BrandMark />
+              <span>
+                <span className="brand-name">ROBOTICS CLUB</span>
+                <span className="brand-sub">IIT DHARWAD</span>
+              </span>
+            </a>
+
+            <p>
+              Student robotics collective at the Indian Institute
+              of Technology Dharwad. Built by students, for students.
+            </p>
+
+            <div className="footer-tags">
+              <span>HARDWARE</span>
+              <span>SOFTWARE</span>
+              <span>INNOVATION</span>
+            </div>
           </div>
+
           <div className="footer-cols">
-            <div className="footer-col"><h5>Explore</h5>
-              <a href="about.html">About</a><a href="projects.html">Projects</a><a href="events.html">Events</a><a href="teams.html">Teams</a>
+            <div className="footer-col">
+              <h5>EXPLORE</h5>
+              <a href="about.html">About <span>↗</span></a>
+              <a href="projects.html">Projects <span>↗</span></a>
+              <a href="events.html">Events <span>↗</span></a>
+              <a href="teams.html">Teams <span>↗</span></a>
             </div>
-            <div className="footer-col"><h5>Connect</h5>
-              <a href="index.html#contact">Sponsor us</a><a href="index.html#contact">Collaborate</a><a href="mailto:robotics@iitdh.ac.in">Email</a>
-            </div>
-            <div className="footer-col"><h5>Social</h5>
-              <a href="https://www.instagram.com/robotics.iitdh/" onClick={(e) => e.preventDefault()}>Instagram ↗</a><a href="https://www.linkedin.com/company/robotics-club-iit-dharwad/" onClick={(e) => e.preventDefault()}>LinkedIn ↗</a><a href="https://github.com/robotics-club-iitdh" onClick={(e) => e.preventDefault()}>GitHub ↗</a>
+
+            <div className="footer-col">
+              <h5>FOLLOW US</h5>
+              <a
+                href="https://www.instagram.com/roboticsclub_iitdh/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram <span>↗</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/robotics-club-iit-dharwad/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn <span>↗</span>
+              </a>
+              <a
+                href="https://github.com/robotics-club-iitdh"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub <span>↗</span>
+              </a>
             </div>
           </div>
         </div>
+
+        {/* Bottom bar */}
         <div className="footer-bottom">
-          <span>© 2026 Robotics Club · IIT Dharwad</span>
+          <span>
+            © {new Date().getFullYear()} Robotics Club · IIT Dharwad
+          </span>
+
+          <span className="footer-bottom-center">
+            ENGINEERED WITH CURIOSITY <span>✳</span>
+          </span>
+
+          <a href="#top" className="footer-back-top">
+            BACK TO TOP ↑
+          </a>
         </div>
       </div>
     </footer>
   );
 }
+
 
 /* back button used on detail pages */
 function BackBar({ href, label }) {
