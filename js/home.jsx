@@ -7,6 +7,7 @@ function Splash() {
       <div className="splash-inner">
         <div className="emblem">
           <span className="e-ring r1" /><span className="e-ring r2" /><span className="e-ring r3" />
+          <img src="../assets/Logo.png" alt="Emblem logo" className="e-image" />
           <span className="e-core" /><span className="e-tick" />
         </div>
         <h1 className="splash-name">ROBOTICS<br /><span className="l2">CLUB</span></h1>
@@ -213,7 +214,6 @@ function Home() {
         <AboutIntro />
         <Innovations />
         <Achievements />
-        <SponsorContact />
       </main>
       <SiteFooter />
       <HomeTweaks />

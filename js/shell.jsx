@@ -22,7 +22,7 @@ applyPrefs();
 function BrandMark({ small }) {
   return (
     <span className={`brand-mark ${small ? "sm" : ""}`}>
-      <span className="ring2" /><span className="dia" />
+      <span className="ring2" /> <img src="../assets/Logo.png" alt="Emblem logo" className="e-image" /> <span className="dia" />
     </span>
   );
 }
@@ -59,10 +59,10 @@ function TopBar({ current }) {
 
 /* tiles shown in the grid (Home + Contact live on the vertical rail) */
 const MENU_TILES = [
-  { id: "projects", hue: 230, glyph: "PR" },
-  { id: "events", hue: 205, glyph: "EV" },
-  { id: "teams", hue: 150, glyph: "TM" },
-  { id: "about", hue: 285, glyph: "AB" },
+  { id: "projects", hue: 230 },
+  { id: "events", hue: 205 },
+  { id: "teams", hue: 150 },
+  { id: "about", hue: 285 },
 ];
 
 function MenuOverlay({ open, onClose, current }) {
@@ -92,8 +92,6 @@ function MenuOverlay({ open, onClose, current }) {
             >
               <span className="mt-tint" />
               <span className="mt-grain" />
-              <span className="mt-num"><i />{t.n}</span>
-              <span className="mt-glyph" aria-hidden="true">{t.glyph}</span>
               <span className="mt-body">
                 <span className="mt-label">{t.label}</span>
                 <span className="mt-desc">{t.desc}</span>
@@ -101,17 +99,6 @@ function MenuOverlay({ open, onClose, current }) {
               <span className="mt-enter">ENTER <i className="arr">→</i></span>
             </a>
           ))}
-        </nav>
-
-        <nav className="menu-rail">
-          <a href={home.href} className={`rail-link ${current === home.id ? "active" : ""}`} style={{ transitionDelay: ".34s" }}>
-            <span className="rl-label">{home.label}</span>
-            <span className="rl-n">{home.n}</span>
-          </a>
-          <a href={contact.href} className={`rail-link ${current === contact.id ? "active" : ""}`} style={{ transitionDelay: ".42s" }}>
-            <span className="rl-label">{contact.label}</span>
-            <span className="rl-n">{contact.n}</span>
-          </a>
         </nav>
       </div>
     </div>
@@ -125,7 +112,6 @@ function SiteFooter() {
         <div className="footer-cta reveal">
           <div className="eyebrow">EST. 2017 · IIT DHARWAD</div>
           <h2 className="footer-big">Let's build the<br />future, together.</h2>
-          <a href="index.html#contact" className="btn btn-primary">Work with us <span className="arr">→</span></a>
         </div>
         <div className="footer-top">
           <div className="footer-brand">

@@ -58,6 +58,24 @@
   transform: rotate(45deg);
 }
 
+.brand-mark .e-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 28px;
+  /* Make it smaller */
+  height: 28px;
+  /* Keep width and height equal */
+  object-fit: cover;
+  /* Fill the circular area */
+  border-radius: 50%;
+  /* Make it circular */
+
+  z-index: 2;
+}
+
 .brand:hover .brand-mark .dia {
   transform: rotate(135deg);
 }
@@ -690,6 +708,24 @@
   inset: 30%;
   border: 1px solid color-mix(in oklab, var(--a2) 45%, var(--line));
   animation: spin 16s linear infinite reverse;
+}
+
+.emblem .e-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100px;
+  /* Make it smaller */
+  height: 100px;
+  /* Keep width and height equal */
+  object-fit: cover;
+  /* Fill the circular area */
+  border-radius: 50%;
+  /* Make it circular */
+
+  z-index: 2;
 }
 
 .emblem .e-core {
