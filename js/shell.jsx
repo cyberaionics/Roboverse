@@ -22,7 +22,7 @@ applyPrefs();
 function BrandMark({ small }) {
   return (
     <span className={`brand-mark ${small ? "sm" : ""}`}>
-      <span className="ring2" /> <img src="https://drive.google.com/file/d/1n6VROdIN-V2lxUuTOVe_obaSk6oIalzU/view?usp=sharing" alt="Emblem logo" className="e-image" /> <span className="dia" />
+      <span className="ring2" /> <img src="https://raw.githubusercontent.com/cyberaionics/Roboverse/main/assets/Logo.png" alt="Emblem logo" className="e-image" /> <span className="dia" />
     </span>
   );
 }
