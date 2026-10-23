@@ -22,7 +22,7 @@ applyPrefs();
 function BrandMark({ small }) {
   return (
     <span className={`brand-mark ${small ? "sm" : ""}`}>
-      <span className="ring2" /> <img src="./assets/Logo.png" alt="Emblem logo" className="e-image" /> <span className="dia" />
+      <span className="ring2" /> <img src="/assets/Logo.png" alt="Emblem logo" className="e-image" /> <span className="dia" />
     </span>
   );
 }
