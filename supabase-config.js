@@ -11,8 +11,8 @@
 
 window.SUPABASE_CONFIG = {
    /* From Supabase → Project Settings → API */
-   url: "https://mvgjpuqhybghvgggfwwo.supabase.co",          // e.g. https://abcd1234.supabase.co
-   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12Z2pwdXFoeWJnaHZnZ2dmd3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMTc2MTYsImV4cCI6MjA5Njg5MzYxNn0.Ss5DepESt4--Oh_9_GMoZHefIjXO-gmxpDCFbHh_ww8",     // the public "anon" key (safe to ship)
+   url: "https://zrhqwmvvcwcaltucjabo.supabase.co",          // e.g. https://abcd1234.supabase.co
+   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyaHF3bXZ2Y3djYWx0dWNqYWJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4NTE1NzYsImV4cCI6MjEwODQyNzU3Nn0.1rHawY46Y9_1rzt_JRj61JPCcMwNs_Tr6mLLk-NpfOs",     // the public "anon" key (safe to ship)
 
    /* The single admin account you create in Supabase → Authentication → Users.
       Members only ever type the PASSWORD on the secret page — this email is
@@ -24,6 +24,6 @@ window.SUPABASE_CONFIG = {
    imageBucket: "site-images",
 
    /* DEMO MODE ONLY — the password used before Supabase is connected.
-      Ignored once `url`/`anonKey` above are real. Change it if you like. */
+      Ignored once `url`/`anonKey` above are real. Change it if you like. RoboticsIITdH@123 */
    demoPassword: "robotics-admin",
 };
